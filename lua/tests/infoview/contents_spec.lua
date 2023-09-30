@@ -348,6 +348,9 @@ describe('infoview content (auto-)update', function()
 
   for ft, goal in pairs{ lean = '⊢ true = true', lean3 = '⊢ true' } do
     describe(ft .. ' cursor position', helpers.clean_buffer(ft, '', function()
+
+      local lean_window
+
       it('is set to the goal line', function()
         local lines = { 'example ' }
         for i=1, 100 do
@@ -360,10 +363,20 @@ describe('infoview content (auto-)update', function()
         helpers.move_cursor{ to = { #lines, 1 } }
         helpers.wait_for_loading_pins()
 
+        lean_window = vim.api.nvim_get_current_win()
         vim.api.nvim_set_current_win(infoview.get_current_infoview().window)
 
         assert.are.equal(vim.api.nvim_get_current_line(), goal)
         assert.are.equal(vim.api.nvim_win_get_cursor(0)[2], #'⊢ ')
+      end)
+
+      it('does not raise errors when the infoview is closed', function()
+        infoview.close()
+        assert.are.equal(vim.api.nvim_get_current_win(), lean_window)
+        for _=1, 10 do
+          vim.cmd[[normal! jw]]
+        end
+        infoview.open()
       end)
     end))
   end
