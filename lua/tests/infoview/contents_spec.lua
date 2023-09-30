@@ -213,7 +213,6 @@ describe('infoview content (auto-)update', function()
       it('shows a tactic goal', function()
         helpers.move_cursor{ to = {6, 0} }
         assert.infoview_contents.are[[
-          ▶ 1 goal
           p q : Prop
           ⊢ p ∨ q → q ∨ p
         ]]
@@ -222,7 +221,6 @@ describe('infoview content (auto-)update', function()
       it('shows mixed goals', function()
         helpers.move_cursor{ to = {9, 11} }
         assert.infoview_contents.are[[
-          ▶ 1 goal
           case inl.h
           p q : Prop
           h1 : p
@@ -274,12 +272,10 @@ describe('infoview content (auto-)update', function()
         ---        lines in infoview.lua)
         helpers.move_cursor{ to = {23, 1} }
         assert.infoview_contents.are[[
-          ▶ 1 goal
           ⊢ 37 = 37
         ]]
         vim.api.nvim_buf_set_lines(0, 21, 22, true, {"def will_be_modified : 2 = 2 := by"})
         assert.infoview_contents.are[[
-          ▶ 1 goal
           ⊢ 2 = 2
         ]]
       end)
@@ -293,7 +289,6 @@ describe('infoview content (auto-)update', function()
         helpers.move_cursor{ to = {3, 27} }
 
         assert.infoview_contents.are[[
-          ▶ 1 goal
           ⊢ ℕ
         ]]
       end)
@@ -301,7 +296,6 @@ describe('infoview content (auto-)update', function()
       it('shows a tactic goal', function()
         helpers.move_cursor{ to = {6, 0} }
         assert.infoview_contents.are[[
-          ▶ 1 goal
           p q : Prop
           ⊢ p ∨ q → q ∨ p
         ]]
@@ -323,7 +317,6 @@ describe('infoview content (auto-)update', function()
         it('properly handles multibyte characters', function()
           helpers.move_cursor{ to = {24, 61} }
           assert.infoview_contents.are[[
-            ▶ 1 goal
             𝔽 : Type
             ⊢ 𝔽 = 𝔽
           ]]
@@ -337,7 +330,6 @@ describe('infoview content (auto-)update', function()
 
           helpers.move_cursor{ to = {24, 60} }
           assert.infoview_contents.are[[
-            ▶ 1 goal
             𝔽 : Type
             ⊢ 𝔽 = 𝔽
           ]]

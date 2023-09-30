@@ -108,7 +108,6 @@ describe('infoview widgets', function()
       helpers.wait_for_loading_pins()
       -- we're looking for `filter` to not be shown as our widget
       assert.infoview_contents.are[[
-        ▶ 1 goal
         ⊢ 2 = 2
       ]]
     end)
@@ -120,7 +119,6 @@ describe('infoview widgets', function()
       -- FIXME: Extra newline only with widgets enabled
       assert.infoview_contents.are[[
         filter: no filter
-        ▶ 1 goal
         ⊢ 2 = 2
       ]]
     end)

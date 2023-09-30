@@ -27,7 +27,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
     first_pin_position = {7, 5}
     helpers.move_cursor{ to = first_pin_position }
     assert.infoview_contents.are[[
-      ▶ 1 goal
       case inr
       p q : Prop
       h2 : q
@@ -44,7 +43,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
     --        should be added).
     helpers.move_cursor{ to = {4, 5} }
     assert.infoview_contents.are(string.format([[
-      ▶ 1 goal
       case inl
       p q : Prop
       h1 : p
@@ -54,7 +52,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       ⊢ ∀ {a b : Prop}, a → a ∨ b
 
       -- %s at 7:6
-      ▶ 1 goal
       case inr
       p q : Prop
       h2 : q
@@ -69,14 +66,12 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
 
     helpers.move_cursor{ to = {5, 4} }
     assert.infoview_contents.are(string.format([[
-      ▶ 1 goal
       case inl.h
       p q : Prop
       h1 : p
       ⊢ p
 
       -- %s at 7:6
-      ▶ 1 goal
       case inr
       p q : Prop
       h2 : q
@@ -86,7 +81,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       ⊢ ∀ {a b : Prop}, b → a ∨ b
 
       -- %s at 1:50
-      ▶ 1 goal
       p q : Prop
       ⊢ p ∨ q → q ∨ p
     ]], filename, filename))
@@ -109,7 +103,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
 
     infoview.clear_pins()
     assert.infoview_contents.are[[
-      ▶ 1 goal
       case inl.h
       p q : Prop
       h1 : p
@@ -119,7 +112,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
     -- Still shows the right contents after a final movement / update
     helpers.move_cursor{ to = {7, 5} }
     assert.infoview_contents.are[[
-      ▶ 1 goal
       case inr
       p q : Prop
       h2 : q
@@ -139,14 +131,12 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
     infoview.clear_pins()
     infoview.add_pin()
     assert.infoview_contents.are(string.format([[
-      ▶ 1 goal
       case inl
       p q : Prop
       h1 : p
       ⊢ q ∨ p
 
       -- %s at 4:6
-      ▶ 1 goal
       case inl
       p q : Prop
       h1 : p
@@ -168,7 +158,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
         ⊢ 2 = 2
 
         -- %s at 6:11
-        ▶ 1 goal
         case inl
         p q : Prop
         h1 : p
@@ -182,7 +171,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
         ⊢ 2 = 2
 
         -- %s at 6:11
-        ▶ 1 goal
         case inl
         p q : Prop
         h1 : p
@@ -193,12 +181,10 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       vim.api.nvim_buf_set_lines(0, 0, 2, true, {})
 
       assert.infoview_contents.are(string.format([[
-        ▶ 1 goal
         p q : Prop
         ⊢ p ∨ q → q ∨ p
 
         -- %s at 4:11
-        ▶ 1 goal
         case inl
         p q : Prop
         h1 : p
@@ -208,12 +194,10 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
 
     it('does not move pin when lines are added or removed below it', function()
       assert.infoview_contents.are(string.format([[
-        ▶ 1 goal
         p q : Prop
         ⊢ p ∨ q → q ∨ p
 
         -- %s at 4:11
-        ▶ 1 goal
         case inl
         p q : Prop
         h1 : p
@@ -228,7 +212,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
         ⊢ 2 = 2
 
         -- %s at 4:11
-        ▶ 1 goal
         case inl
         p q : Prop
         h1 : p
@@ -239,12 +222,10 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
 
       helpers.move_cursor{ to = {1, 50} }
       assert.infoview_contents.are(string.format([[
-        ▶ 1 goal
         p q : Prop
         ⊢ p ∨ q → q ∨ p
 
         -- %s at 4:11
-        ▶ 1 goal
         case inl
         p q : Prop
         h1 : p
@@ -257,12 +238,10 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       vim.cmd[[normal cl37]]  -- h1 -> h37
       helpers.move_cursor{ to = {1, 50} }
       assert.infoview_contents.are(string.format([[
-        ▶ 1 goal
         p q : Prop
         ⊢ p ∨ q → q ∨ p
 
         -- %s at 4:12
-        ▶ 1 goal
         case inl
         p q : Prop
         h37 : p
@@ -275,12 +254,10 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       vim.cmd[[normal a    ]]
       helpers.move_cursor{ to = {1, 50} }
       assert.infoview_contents.are(string.format([[
-        ▶ 1 goal
         p q : Prop
         ⊢ p ∨ q → q ∨ p
 
         -- %s at 4:12
-        ▶ 1 goal
         case inl
         p q : Prop
         h37 : p
@@ -289,7 +266,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
 
       infoview.clear_pins()
       assert.infoview_contents.are[[
-        ▶ 1 goal
         p q : Prop
         ⊢ p ∨ q → q ∨ p
       ]]
@@ -308,7 +284,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       infoview.set_diff_pin()
 
       assert.infoview_contents.are[[
-        ▶ 1 goal
         case inl
         p q : Prop
         h37 : p
@@ -319,7 +294,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       ]]
 
       assert.diff_contents.are[[
-        ▶ 1 goal
         case inl
         p q : Prop
         h37 : p
@@ -341,7 +315,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       helpers.move_cursor{ to = {5, 5} }
 
       assert.infoview_contents.are[[
-        ▶ 1 goal
         case inl.h
         p q : Prop
         h37 : p
@@ -349,7 +322,6 @@ describe('infoview pins', helpers.clean_buffer('lean', dedent[[
       ]]
 
       assert.diff_contents.are[[
-        ▶ 1 goal
         case inl
         p q : Prop
         h37 : p

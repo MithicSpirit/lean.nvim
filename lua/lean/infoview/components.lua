@@ -49,8 +49,7 @@ function components.goal(goal)
 
   local goals_list = Element:new{
     text = #goal.goals == 0 and H('goals accomplished 🎉')
-      or #goal.goals == 1 and H('1 goal')
-      or H(string.format('%d goals', #goal.goals)),
+           or #goal.goals > 1 or H(string.format('%d goals', #goal.goals)),
     name = "plain-goals-list"
   }
   element:add_child(goals_list)
@@ -234,8 +233,7 @@ function components.interactive_goals(goal, sess)
     children = {
       Element:new{
         text = #goal.goals == 0 and H('goals accomplished 🎉')
-          or #goal.goals == 1 and H('1 goal\n')
-          or H(string.format('%d goals\n', #goal.goals))
+          or #goal.goals > 1 and H(string.format('%d goals\n', #goal.goals))
       }
     }
   }
