@@ -11,7 +11,7 @@ local function suggestions_from(diagnostic)
   for suggestion in vim.gsplit(trimmed, 'Try this:') do
     table.insert(
       suggestions,
-      { replacement = vim.trim(suggestion, '\r\n'),
+      { replacement = vim.trim(suggestion),
         lnum = diagnostic.lnum,
         col = diagnostic.col }
     )
